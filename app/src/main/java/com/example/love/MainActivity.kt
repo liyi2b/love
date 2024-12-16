@@ -80,6 +80,7 @@ fun MainScreen(navController: NavController) {
         Font(R.font.fonttt)  // fonttt.ttf 在 res/font 目錄中
     )
 
+
     Scaffold(
         topBar = {
             Box(
@@ -109,10 +110,6 @@ fun MainScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                // 這裡是圖片介紹按鈕，按下後會導航到圖片介紹頁面
-//                RectangularButton(text = "圖片介紹",modifier = Modifier.fillMaxWidth(), height = 200.dp) {
-//                    navController.navigate("imageDescriptionScreen")
-//                }
 
                 // 圖片介紹分類按鈕
                 RectangularButton(text = "圖片介紹分類", modifier = Modifier.fillMaxWidth(), height = 200.dp) {
@@ -122,10 +119,6 @@ fun MainScreen(navController: NavController) {
                 // 中间的间隔距离
                 Spacer(modifier = Modifier.height(16.dp)) // 16.dp 是你想要的间距，可以调整
 
-                // 配對遊戲按鈕
-//                RectangularButton(text = "配對遊戲", height = 200.dp) {
-//                    navController.navigate("gameScreen")
-//                }
 
                 // 這裡是選擇配對遊戲按鈕，按下後會導航到配對遊戲選擇頁面
                 RectangularButton(text = "選擇配對遊戲",modifier = Modifier.fillMaxWidth(), height = 200.dp) {
@@ -139,17 +132,39 @@ fun MainScreen(navController: NavController) {
 // 圖片介紹分類頁面
 @Composable
 fun ImageCategoryScreen(navController: NavController) {
+    val customFont = FontFamily(
+        Font(R.font.fonttt)  // fonttt.ttf 在 res/font 目錄中
+    )
+
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.TopStart)
+                .background(Color(0xFF004B97))
+                .padding(8.dp),  // 添加內邊距，讓文字不會緊貼邊緣
+            contentAlignment = Alignment.CenterStart
+
+        ) {
+            Text(
+                text = "圖片介紹分類",
+                color = Color.White,
+                fontSize = 24.sp,
+                style = androidx.compose.ui.text.TextStyle(fontFamily = customFont)
+            )
+        }
+
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // 圖片介紹按鈕
-            RectangularButton(text = "圖片介紹", modifier = Modifier.fillMaxWidth(), height = 100.dp) {
+            RectangularButton(text = "職業圖片介紹", modifier = Modifier.fillMaxWidth(), height = 100.dp) {
                 navController.navigate("imageDescriptionScreen")
             }
 
@@ -165,8 +180,11 @@ fun ImageCategoryScreen(navController: NavController) {
         }
 
 
-        // 右下角的返回主页按钮
-        BackToHomeButton(navController, modifier = Modifier.offset(y = 50.dp))
+        BackToHomeButton(
+            navController,
+            modifier = Modifier
+                .offset(y = 50.dp)  // 控制位置
+        )
     }
 }
 
@@ -817,6 +835,7 @@ fun RectangularButton(
     text: String,
     height: Dp,
     modifier: Modifier = Modifier,
+    fontFamily: FontFamily = FontFamily.Default,
     onClick: () -> Unit
 ) {
 
